@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'sorter'
+  name: 'sorter',
 })
 export class SorterPipe implements PipeTransform {
-
   /**
    * A kapott tömb rendezése a szűrőkifejezés alapján.
    * @param value {any[]} - a tömb
@@ -13,15 +12,15 @@ export class SorterPipe implements PipeTransform {
    */
   transform(value: any[], key: string): any[] {
     // A KÖVETKEZŐ SORT TÁVOLÍTSD EL!!!
-    return value;
 
     /**
      * FELADAT!
      * Ellenőrzés: ha a value nem tömb vagy nincs megadva a key,
      * térj vissza a value változóval.
      */
-
-
+    if (!Array.isArray(value) || !key) {
+      return value;
+    }
 
     /**
      * FELADAT!
@@ -32,9 +31,14 @@ export class SorterPipe implements PipeTransform {
      * 3. Térj vissza a két string localeCompare metódus által visszaadott
      *  összehasonlításának az eredményével.
      */
-
-
+    return value.sort((a, b) => {
+      if (typeof a[key] === 'number' && typeof a[key] === 'number') {
+        return a[key] - b[key];
+      } else {
+        return String(a[key])
+          .toLowerCase()
+          .localeCompare(String(b[key]).toLowerCase());
+      }
+    });
   }
-
 }
-
